@@ -8,8 +8,5 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: 24f2007761@ds.study.iitm.ac.in   # 👈 required email in step name
+      - name: 24f2007761@ds.study.iitm.ac.in   # must match exactly
         run: echo "Hello, world!"

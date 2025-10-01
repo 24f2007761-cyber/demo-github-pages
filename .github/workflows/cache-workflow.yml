@@ -1,0 +1,21 @@
+name: CI with Cache
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Cache dependencies
+      id: cache-step
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache # or your dependency cache folder path
+        key: cache-b4b664f
+        restore-keys: cache-b4b664f
+
+    - name: prime-cache-b4b664f
+      run: echo "Cache hit status: ${{ steps.cache-step.outputs.cache-hit }}"

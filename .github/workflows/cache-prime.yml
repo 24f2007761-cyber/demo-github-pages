@@ -18,5 +18,5 @@ jobs:
         restore-keys: cache-b4b664f
 
     - name: prime-cache-b4b664f
-      run: echo "Cache hit status:${{ steps.cache-step.outputs.cache-hit }}"
+      run: echo "Cache hit status: ${{ steps.cache-step.outputs.cache-hit }}"
 

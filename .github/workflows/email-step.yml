@@ -1,16 +1,15 @@
-name: Email Step Demo
+name: Email Check
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
+  push:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 24f2007761@ds.study.iitm.ac.in
-        run: echo "Hello, world! This step is tagged with my email."
+      - name: 24f2007761@ds.study.iitm.ac.in   # 👈 required email in step name
+        run: echo "Hello, world!"

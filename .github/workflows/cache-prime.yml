@@ -27,7 +27,8 @@ jobs:
             - cache-b4b664f
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci || true   # <-- avoid stopping if no package.json
 
       - name: prime-cache-b4b664f
+        if: always()
         run: echo "Cache hit: ${{ steps.deps-cache.outputs.cache-hit }}"

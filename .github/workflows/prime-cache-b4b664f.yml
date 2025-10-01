@@ -1,33 +1,28 @@
-name: Cache Dummy Directory (prime-cache-b4b664f)
+name: Prime Cache b4b664f
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
+  push:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Create a dummy file/folder to cache
-      - name: Create dummy cache content
-        run: |
-          mkdir -p .cache
-          echo "hello world" > .cache/dummy.txt
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-      # Cache the dummy folder
-      - id: deps-cache
-        name: Restore cache (cache-b4b664f)
+      - name: prime-cache-b4b664f
+        id: cache-deps
         uses: actions/cache@v4
         with:
-          path: .cache
+          path: ~/.npm
           key: cache-b4b664f
-          restore-keys:
-            - cache-b4b664f
 
-      # Prime cache step
-      - name: prime-cache-b4b664f
-        run: echo "Cache hit: ${{ steps.deps-cache.outputs.cache-hit }}"
+      - name: Echo cache result
+        run: echo "Cache hit = ${{ steps.cache-deps.outputs.cache-hit }}"
+

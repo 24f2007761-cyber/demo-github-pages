@@ -2,8 +2,7 @@ name: Cache Dependencies (prime cache-b4b664f)
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch: {}
 
 jobs:
@@ -30,6 +29,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # 👇 THIS IS THE REQUIRED STEP
       - name: prime-cache-b4b664f
         run: echo "Cache hit: ${{ steps.deps-cache.outputs.cache-hit }}"
-

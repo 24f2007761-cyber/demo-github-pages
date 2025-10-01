@@ -1,18 +1,5 @@
-name: Email Step Test
-
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch: {}
-
 jobs:
   test:
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: 24f2007761@ds.study.iitm.ac.in
-        run: |
-          echo "Hello from the step named with the email address."
-          echo "This step name will appear in the Actions UI and logs."
+        run: echo "Hello, world!"

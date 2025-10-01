@@ -1,22 +1,32 @@
-name: CI with Cache
+name: Cache Dependencies (prime cache-b4b664f)
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Cache dependencies
-      id: cache-step
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache
-        key: cache-b4b664f
-        restore-keys: cache-b4b664f
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: prime-cache-b4b664f
-      run: echo "Cache hit status:${{ steps.cache-step.outputs.cache-hit }}"
+      - id: deps-cache
+        name: Restore cache (cache-b4b664f)
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: cache-b4b664f
+          restore-keys: prime-cache-b4b664f
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: prime-cache-b4b664f
+        run: echo "Cache hit:${{ steps.deps-cache.outputs.cache-hit }}"

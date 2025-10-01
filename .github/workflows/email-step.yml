@@ -1,4 +1,4 @@
-name: Email Check
+name: Email Step Check
 
 on:
   workflow_dispatch:
@@ -8,5 +8,5 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: 24f2007761@ds.study.iitm.ac.in   # must match exactly
+      - name: 24f2007761@ds.study.iitm.ac.in
         run: echo "Hello, world!"

@@ -1,7 +1,7 @@
 name: prime-cache-b4b664f
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: prime-cache-b4b664f
   push:
 
 jobs:

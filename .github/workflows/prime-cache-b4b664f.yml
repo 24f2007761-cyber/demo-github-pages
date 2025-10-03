@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: prime-cache-b4b664f
+      - name: "prime-cache-b4b664f"
         id: cache-deps
         uses: actions/cache@v4
         with:

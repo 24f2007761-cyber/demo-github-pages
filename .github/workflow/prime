@@ -1,1 +1,35 @@
+name: Cache Prime Example
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v4
+        with:
+          # replace with real path for your toolchain (.npm, .cache/pip, etc.)
+          path: ~/.cache/my-deps
+          key: cache-b4b664f
+
+      - name: Populate cache path so the cache can be saved (prime)
+        run: |
+          mkdir -p ~/.cache/my-deps
+          echo "primed at $(date -u)" > ~/.cache/my-deps/primed.txt
+          ls -la ~/.cache/my-deps
+
+      - name: "prime-cache-b4b664f"
+        run: |
+          echo "Cache result: ${{ steps.cache.outputs.cache-hit }}"
+          # show saved file (if restored)
+          echo "Contents of cache path:"
+          ls -la ~/.cache/my-deps || true

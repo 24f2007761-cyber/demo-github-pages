@@ -1,24 +1,12 @@
-name: Demo Workflow with Email
+name: Email Step Workflow
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - main
-  workflow_dispatch: # Allows manual triggering
 
 jobs:
-  demo-job:
+  test:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
       - name: 24f2007761@ds.study.iitm.ac.in
-        run: echo "Hello, world! This step contains the email address."
-      
-      - name: Print date
-        run: date
-      
-      - name: List files
-        run: ls -la
+        run: echo "Step with email address executed successfully"

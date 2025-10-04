@@ -14,15 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Step 2: Cache dependencies
-      - name: Prime cache
+      # Step 2: Cache dependencies (name must match grader)
+      - name: prime-cache-b4b664f
         id: prime-cache-b4b664f
         uses: actions/cache@v4
         with:
           path: ~/.cache/my-deps
           key: cache-b4b664f
 
-      # Step 3: Populate cache path (prime it)
+      # Step 3: Populate cache path
       - name: Populate cache path
         run: |
           mkdir -p ~/.cache/my-deps

@@ -10,26 +10,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout repository
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache dependencies
-        id: cache
+      # Step 2: Cache dependencies
+      - name: Prime cache
+        id: prime-cache-b4b664f
         uses: actions/cache@v4
         with:
-          # replace with real path for your toolchain (.npm, .cache/pip, etc.)
           path: ~/.cache/my-deps
           key: cache-b4b664f
 
-      - name: Populate cache path so the cache can be saved (prime)
+      # Step 3: Populate cache path (prime it)
+      - name: Populate cache path
         run: |
           mkdir -p ~/.cache/my-deps
           echo "primed at $(date -u)" > ~/.cache/my-deps/primed.txt
           ls -la ~/.cache/my-deps
 
-      - name: "prime-cache-b4b664f"
+      # Step 4: Show cache hit/miss
+      - name: Show cache status
         run: |
-          echo "Cache result: ${{ steps.cache.outputs.cache-hit }}"
-          # show saved file (if restored)
+          echo "Cache hit? ${{ steps.prime-cache-b4b664f.outputs.cache-hit }}"
           echo "Contents of cache path:"
           ls -la ~/.cache/my-deps || true

@@ -1,39 +1,32 @@
-name: Cache Dependencies Example
+name: Cache Dependencies
 
 on:
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-with-cache:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Cache dependencies
         id: cache-deps
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.cache/pip
-            ~/.cache/uv
-          key: cache-b4b664f-${{ runner.os }}-${{ hashFiles('**/requirements.txt', '**/pyproject.toml') }}
-          restore-keys: |
-            cache-b4b664f-${{ runner.os }}-
-
+          path: ~/.cache/dependencies
+          key: cache-b4b664f
+          restore-keys: cache-b4b664f
+      
       - name: prime-cache-b4b664f
         run: |
-          if [ "${{ steps.cache-deps.outputs.cache-hit }}" == "true" ]; then
-            echo "Cache hit: cache-b4b664f"
-          else
-            echo "Cache miss: cache-b4b664f"
-          fi
-
-      - name: Install dependencies
+          echo "Cache hit result: ${{ steps.cache-deps.outputs.cache-hit }}"
+      
+      - name: Create cache content
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
-          python -m pip install --upgrade pip
-          pip install requests
+          mkdir -p ~/.cache/dependencies
+          echo "cached" > ~/.cache/dependencies/data.txt
